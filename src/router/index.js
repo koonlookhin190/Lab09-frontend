@@ -9,6 +9,10 @@ import NotFoundView from '@/views/NotFoundView.vue'
 
 import AddEvent from '@/views/EventForm.vue'
 
+import AddOrgainzer from '@/views/OrganizeForm.vue'
+
+import OrganizerListView from '@/views/OrganizerListView.vue'
+
 import NetWorkErrorView from '@/views/NetworkErrorView.vue'
 import NProgress from 'nprogress'
 import GStore from '@/store'
@@ -29,6 +33,17 @@ const routes = [
     path: '/add-event',
     name: 'AddEvent',
     component: AddEvent
+  },
+  {
+    path: '/add-organizer',
+    name: 'AddOrgainzer',
+    component: AddOrgainzer
+  },
+  {
+    path: '/organizers',
+    name: 'OrgainzerList',
+    component: OrganizerListView,
+    props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
   {
     path: '/event/:id',
