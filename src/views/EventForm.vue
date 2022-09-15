@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form>
+    <form @submit.prevent="saveEvent">
       <label>Category</label>
       <input
         v-model="event.category"
@@ -39,8 +39,11 @@
     <pre>{{ event }} </pre>
   </div>
 </template>
+
 <script>
+import EventService from '@/services/EventService'
 export default {
+  inject: ['GStore'],
   data() {
     return {
       event: {
@@ -50,9 +53,30 @@ export default {
         location: ''
       }
     }
+  },
+  methods: {
+    saveEvent() {
+      EventService.saveEvent(this.event)
+        .then((response) => {
+          console.log(response)
+          this.$router.push({
+            name: 'EventLayoutView',
+            params: { id: response.data.id }
+          })
+          this.GStore.flashMessage =
+            'You are successfully add a new event for' + response.data.title
+          setTimeout(() => {
+            this.GStore.flashMessage = ''
+          }, 3000)
+        })
+        .catch(() => {
+          this.$router.push({ name: 'NetworkError' })
+        })
+    }
   }
 }
 </script>
+
 <style scoped>
 h3 {
   font-weight: bold;
