@@ -49,7 +49,7 @@
         placeholder="Date"
         class="field"
       />
-      <button type="subnit">Submit</button>
+      <button type="submit">Submit</button>
     </form>
     <pre>{{ event }} </pre>
   </div>
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     saveEvent() {
-      EventService.saveOrganizer(this.event)
+      EventService.saveEvent(this.event)
         .then((response) => {
           console.log(response)
           this.$router.push({
